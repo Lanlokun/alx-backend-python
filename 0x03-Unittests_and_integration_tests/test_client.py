@@ -6,7 +6,6 @@ from unittest.mock import patch, PropertyMock
 from parameterized import parameterized, parameterized_class
 from client import GithubOrgClient
 from fixtures import TEST_PAYLOAD
-from urllib.error import HTTPError
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -36,7 +35,8 @@ class TestGithubOrgClient(unittest.TestCase):
 
     @patch('client.get_json')
     def test_public_repos(self, mock_get_json):
-        """ test that the list of repos is what you expect from the chosen payload."""
+        """ test that the list of repos is what
+        you expect from the chosen payload."""
         json_payload = [{"name": "Google"}, {"name": "Twitter"}]
         mock_get_json.return_value = json_payload
 
@@ -57,12 +57,12 @@ class TestGithubOrgClient(unittest.TestCase):
         ({'license': {'key': 'my_license'}}, 'my_license', True),
         ({'license': {'key': 'other_license'}}, 'my_license', False)
     ])
-
     def test_has_license(self, repo, license_key, expected):
         """test_has_license"""
         test_class = GithubOrgClient("test")
         result = test_class.has_license(repo, license_key)
         self.assertEqual(result, expected)
+
 
 @parameterized_class(
     ("org_payload", "repos_payload", "expected_repos", "apache2_repos"),
