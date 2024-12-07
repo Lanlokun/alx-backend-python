@@ -1,19 +1,21 @@
 import sqlite3
 
-def stream_users_in_batches(batch_size):
+def stream_users_in_batches(batch_size, table_name):
     """
-    Generator function that fetches rows from the users table in batches.
+    Generator function that fetches rows from the specified table in batches.
 
     Args:
         batch_size (int): The size of each batch.
+        table_name (str): The name of the table to query.
     
     Yields:
-        list: A batch of rows from the users table.
+        list: A batch of rows from the specified table.
     """
-    connection = sqlite3.connect('alxprodev.db')  # Replace with your database path
+    connection = sqlite3.connect('your_database.db')
     try:
         cursor = connection.cursor()
-        cursor.execute("SELECT * FROM users")
+        query = f"SELECT * FROM {table_name}"
+        cursor.execute(query)
         
         while True:
             batch = cursor.fetchmany(batch_size)
@@ -23,16 +25,17 @@ def stream_users_in_batches(batch_size):
     finally:
         connection.close()
 
-def batch_processing(batch_size):
+def batch_processing(batch_size, table_name):
     """
-    Processes each batch of users to filter those over the age of 25.
+    Processes each batch of rows to filter users over the age of 25.
 
     Args:
         batch_size (int): The size of each batch.
+        table_name (str): The name of the table to query.
 
     Yields:
-        list: A filtered batch of users over the age of 25.
+        list: A filtered batch of rows over the age of 25.
     """
-    for batch in stream_users_in_batches(batch_size):
-        filtered_users = [user for user in batch if user[2] > 25]
-        yield filtered_users
+    for batch in stream_users_in_batches(batch_size, table_name):
+        filtered_batch = [user for user in batch if user[2] > 25]
+        yield filtered_batch
