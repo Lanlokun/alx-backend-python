@@ -11,7 +11,7 @@ def stream_users_in_batches(batch_size, table_name):
     Yields:
         list: A batch of rows from the specified table.
     """
-    connection = sqlite3.connect('your_database.db')
+    connection = sqlite3.connect('database.db')
     try:
         cursor = connection.cursor()
         query = f"SELECT * FROM user_data"
