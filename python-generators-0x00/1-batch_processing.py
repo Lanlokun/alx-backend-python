@@ -38,4 +38,6 @@ def batch_processing(batch_size, table_name):
     """
     for batch in stream_users_in_batches(batch_size, table_name):
         filtered_batch = [user for user in batch if user[2] > 25]
-        yield filtered_batch
+        if filtered_batch:
+            yield filtered_batch
+    return 
