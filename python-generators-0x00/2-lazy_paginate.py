@@ -14,7 +14,7 @@ def paginate_users(page_size, offset):
     connection = sqlite3.connect('database.db')
     try:
         cursor = connection.cursor()
-        query = f"SELECT * FROM users LIMIT {page_size} OFFSET {offset}"
+        query = f"SELECT * FROM user_data LIMIT {page_size} OFFSET {offset}"
         cursor.execute(query)
         
         batch = cursor.fetchall()
@@ -35,7 +35,6 @@ def lazy_paginate(page_size):
     """
     offset = 0
     while True:
-        # Fetch the next page of users
         users_batch = paginate_users(page_size, offset)
         
         batch = next(users_batch, None)
