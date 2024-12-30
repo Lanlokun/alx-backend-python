@@ -4,6 +4,7 @@ from django.db import models
 import uuid
 
 class User(AbstractUser):
+    user_id = models.AutoField(primary_key=True)
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=255)
@@ -16,7 +17,7 @@ class User(AbstractUser):
 
 class Conversation(models.Model):
     conversation_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    users = models.ManyToManyField(User, related_name='conversations')
+    participants = models.ManyToManyField(User, related_name='conversations')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
