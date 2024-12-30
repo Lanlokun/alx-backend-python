@@ -8,5 +8,5 @@ router.register(r'messages', MessageViewSet, basename='message')
 
 # Define the URL patterns
 urlpatterns = [
-    path("api/", include(router.urls)),  # Prefix all API paths with /api/
+    path('api/', include(router.urls)),  # Prefixing all the URLs with /api/
 ]
