@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from rest_framework.exceptions import ValidationError
 from .models import User, Conversation, Message
 import uuid
 
@@ -24,7 +23,7 @@ class MessageSerializer(serializers.ModelSerializer):
         Custom validation for message body to check if it's not empty.
         """
         if not value.strip():
-            raise ValidationError("Message body cannot be empty")
+            raise serializers.ValidationError("Message body cannot be empty")
         return value
 
     class Meta:
