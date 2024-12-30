@@ -13,7 +13,7 @@ nested_router.register(r'messages', MessageViewSet, basename='conversation-messa
 
 # Define the URL patterns
 urlpatterns = [
-    path('api/', include(router.urls)),
-    path('api/', include(nested_router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),  
+    path("api/", include(router.urls)),
+    path("api/", include(nested_router.urls)),
+    path("api-auth/", include('rest_framework.urls', namespace='rest_framework')),  
 ]
